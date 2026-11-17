@@ -1,9 +1,9 @@
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
 
 const targetDirs = ['dist', 'build', 'node_modules', '.turbo'];
 
-function cleanupDirectory(startPath) {
+function cleanupDirectory(startPath: string): void {
   if (!fs.existsSync(startPath)) return;
   const files = fs.readdirSync(startPath);
   for (const file of files) {

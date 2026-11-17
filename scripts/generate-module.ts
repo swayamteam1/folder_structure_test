@@ -1,10 +1,10 @@
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
 
 const moduleName = process.argv[2];
 
 if (!moduleName) {
-  console.error('❌ Please provide a module name. Example: node scripts/generate-module.js products');
+  console.error('❌ Please provide a module name. Example: tsx scripts/generate-module.ts products');
   process.exit(1);
 }
 
@@ -16,7 +16,7 @@ if (fs.existsSync(targetDir)) {
 
 fs.mkdirSync(targetDir, { recursive: true });
 
-const files = {
+const files: Record<string, string> = {
   [`${moduleName}.controller.ts`]: `// ${moduleName} Controller (TypeScript)
 import { Request, Response, NextFunction } from 'express';
 import * as service from './${moduleName}.service';

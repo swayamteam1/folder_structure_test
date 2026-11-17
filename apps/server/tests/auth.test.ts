@@ -1,6 +1,6 @@
-const assert = require('node:assert');
-const test = require('node:test');
-const { generateToken } = require('../src/services/tokenService');
+import assert from 'node:assert';
+import test from 'node:test';
+import { generateToken } from '../src/services/tokenService';
 
 test('JWT Token Generation', () => {
   const token = generateToken({ id: 1, email: 'test@example.com', roles: ['user'] });

@@ -1,5 +1,5 @@
 export default {
-  async fetch(request, env, ctx) {
+  async fetch(request: Request, _env: any, _ctx: any): Promise<Response> {
     const url = new URL(request.url);
 
     if (url.pathname === '/health') {

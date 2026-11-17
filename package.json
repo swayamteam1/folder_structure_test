@@ -16,8 +16,9 @@
     "lint": "pnpm -r run lint",
     "format": "prettier --write .",
     "test": "pnpm -r run test",
-    "db:seed": "node scripts/seed.js",
-    "generate:module": "node scripts/generate-module.js",
+    "db:seed": "tsx scripts/seed.ts",
+    "generate:module": "tsx scripts/generate-module.ts",
+    "cleanup": "tsx scripts/cleanup.ts",
     "docker:up": "docker compose -f infra/docker/docker-compose.yml up -d",
     "docker:down": "docker compose -f infra/docker/docker-compose.yml down"
   },
