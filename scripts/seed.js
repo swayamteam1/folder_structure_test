@@ -2,7 +2,7 @@ const { Pool } = require('pg');
 require('dotenv').config({ path: './apps/api/.env' });
 
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL || 'postgresql://postgres:postgres@localhost:5432/pern_monorepo_dev'
+  connectionString: process.env.DATABASE_URL || 'postgresql://postgres:postgres@localhost:5433/pern_monorepo_dev'
 });
 
 async function runSeed() {
