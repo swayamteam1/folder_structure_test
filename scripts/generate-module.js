@@ -8,7 +8,7 @@ if (!moduleName) {
   process.exit(1);
 }
 
-const targetDir = path.join(__dirname, '..', 'apps', 'api', 'src', 'modules', moduleName);
+const targetDir = path.join(__dirname, '..', 'apps', 'server', 'src', 'modules', moduleName);
 if (fs.existsSync(targetDir)) {
   console.error(`❌ Module "${moduleName}" already exists at ${targetDir}`);
   process.exit(1);
@@ -17,11 +17,12 @@ if (fs.existsSync(targetDir)) {
 fs.mkdirSync(targetDir, { recursive: true });
 
 const files = {
-  [`${moduleName}.controller.js`]: `// ${moduleName} Controller
-const service = require('./${moduleName}.service');
-const { sendSuccess } = require('../../utils/response');
+  [`${moduleName}.controller.ts`]: `// ${moduleName} Controller (TypeScript)
+import { Request, Response, NextFunction } from 'express';
+import * as service from './${moduleName}.service';
+import { sendSuccess } from '../../utils/response';
 
-exports.getAll = async (req, res, next) => {
+export const getAll = async (_req: Request, res: Response, next: NextFunction) => {
   try {
     const data = await service.findAll();
     return sendSuccess(res, data, 'Fetched ${moduleName} successfully');
@@ -29,37 +30,43 @@ exports.getAll = async (req, res, next) => {
     next(err);
   }
 };
-`,
-  [`${moduleName}.service.js`]: `// ${moduleName} Service
-const repository = require('./${moduleName}.repository');
 
-exports.findAll = async () => {
+export default { getAll };
+`,
+  [`${moduleName}.service.ts`]: `// ${moduleName} Service (TypeScript)
+import * as repository from './${moduleName}.repository';
+
+export const findAll = async () => {
   return await repository.findAll();
 };
-`,
-  [`${moduleName}.repository.js`]: `// ${moduleName} Repository (PostgreSQL Queries)
-const db = require('../../config/database');
 
-exports.findAll = async () => {
-  const result = await db.query('SELECT * FROM ${moduleName} ORDER BY id DESC LIMIT 50');
+export default { findAll };
+`,
+  [`${moduleName}.repository.ts`]: `// ${moduleName} Repository (PostgreSQL Queries - TypeScript)
+import { query } from '../../config/database';
+
+export const findAll = async () => {
+  const result = await query('SELECT * FROM ${moduleName} ORDER BY id DESC LIMIT 50');
   return result.rows;
 };
-`,
-  [`${moduleName}.routes.js`]: `// ${moduleName} Routes
-const express = require('express');
-const router = express.Router();
-const controller = require('./${moduleName}.controller');
-const { authenticate } = require('../../middleware/authMiddleware');
 
+export default { findAll };
+`,
+  [`${moduleName}.routes.ts`]: `// ${moduleName} Routes (TypeScript)
+import { Router } from 'express';
+import * as controller from './${moduleName}.controller';
+import { authenticate } from '../../middleware/authMiddleware';
+
+export const router = Router();
 router.get('/', authenticate, controller.getAll);
 
-module.exports = router;
+export default router;
 `
 };
 
 for (const [fileName, content] of Object.entries(files)) {
   fs.writeFileSync(path.join(targetDir, fileName), content.trim() + '\n');
-  console.log(`Created: apps/api/src/modules/${moduleName}/${fileName}`);
+  console.log(`Created: apps/server/src/modules/${moduleName}/${fileName}`);
 }
 
-console.log(`✅ Module "${moduleName}" generated successfully! Don't forget to mount it in apps/api/src/routes/index.js`);
+console.log(`✅ Module "${moduleName}" generated successfully! Don't forget to mount it in apps/server/src/routes/index.ts`);

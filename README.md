@@ -1,18 +1,18 @@
-# PERN Monorepo Starter (PostgreSQL, Express, React + Vite + Tailwind, Node.js)
+# PERN Monorepo Starter (PostgreSQL, Express, React + Vite + Tailwind, Node.js) in Full TypeScript
 
-A production-grade full-stack monorepo architecture built with clean modular separation, PostgreSQL connection pooling with `pg`, Express REST APIs, React 18+ with Vite & Tailwind CSS, shared monorepo packages, Docker infrastructure, and Cloudflare Worker support.
+A production-grade full-stack monorepo architecture built with clean modular separation, PostgreSQL connection pooling with `pg`, Express REST APIs, React 18+ with Vite & Tailwind CSS, shared monorepo packages, Docker infrastructure, and Cloudflare Worker support — all written in **TypeScript (`.ts` and `.tsx`)**.
 
 ## 🚀 Tech Stack
 
-- **Frontend**: [apps/web](file:///apps/web/) - React 18+, Vite, Tailwind CSS, React Router DOM, Context API.
-- **Backend API**: [apps/api](file:///apps/api/) - Express, Node.js, PostgreSQL (`pg` Connection Pool), JWT Auth, RBAC.
+- **Frontend Client**: [apps/client](file:///apps/client/) - React 18+ (`.tsx`), Vite, Tailwind CSS, React Router DOM, Context API.
+- **Backend Server**: [apps/server](file:///apps/server/) - Express (`.ts`), Node.js, PostgreSQL (`pg` Connection Pool), JWT Auth, RBAC.
 - **Worker**: [apps/worker](file:///apps/worker/) - Cloudflare Worker edge function template.
 - **Shared Packages**:
-  - `@packages/shared`: Shared constants, utility helpers, types, and DTOs.
-  - `@packages/validation`: Unified validation schemas (Zod/custom) for auth & users.
+  - `@packages/shared`: Shared constants, utility helpers, types, and DTOs in TypeScript.
+  - `@packages/validation`: Unified validation schemas (auth & users) in TypeScript.
   - `@packages/eslint-config`: Shared linting rules.
   - `@packages/prettier-config`: Shared formatting configuration.
-- **Infrastructure**: [infra/docker](file:///infra/docker/) - Multi-service Docker Compose (PostgreSQL 16, Express API, Vite Web, Nginx reverse proxy).
+- **Infrastructure**: [infra/docker](file:///infra/docker/) - Multi-service Docker Compose (PostgreSQL 16, Express Server, React Client).
 
 ---
 
@@ -21,39 +21,41 @@ A production-grade full-stack monorepo architecture built with clean modular sep
 ```text
 ├── .github/workflows/          # CI/CD pipelines (ci, test, deploy)
 ├── apps/
-│   ├── web/                    # React + Vite + Tailwind CSS frontend
+│   ├── client/                 # React + Vite + Tailwind CSS frontend (TSX)
 │   │   ├── public/             # Static public assets
 │   │   └── src/
-│   │       ├── app/            # Store, router, and context providers
+│   │       ├── app/            # Store (TS), router (TSX), and context providers (TSX)
 │   │       ├── assets/         # Images, icons, fonts
-│   │       ├── components/     # UI, common, forms, and layout components
-│   │       ├── features/       # Modular features (auth, users, dashboard, settings)
-│   │       ├── hooks/          # Custom reusable React hooks
-│   │       ├── layouts/        # Layout wrappers (MainLayout, AuthLayout)
-│   │       ├── pages/          # Top-level route pages
-│   │       ├── routes/         # Route definitions and route guards
-│   │       ├── services/       # Axios/Fetch API client
+│   │       ├── components/     # UI, common, forms, and layout components (TSX)
+│   │       ├── features/       # Modular features (auth, users, dashboard, settings) (TSX)
+│   │       ├── hooks/          # Custom reusable React hooks (TS)
+│   │       ├── layouts/        # Layout wrappers (MainLayout, AuthLayout) (TSX)
+│   │       ├── pages/          # Top-level route pages (TSX)
+│   │       ├── routes/         # Route definitions and route guards (TSX)
+│   │       ├── services/       # Fetch API client (TS)
 │   │       ├── styles/         # Tailwind and global CSS
-│   │       └── utils/          # Frontend helper utilities
-│   ├── api/                    # Express + Node.js backend
+│   │       ├── types/          # Client-side TypeScript interfaces
+│   │       └── utils/          # Frontend helper utilities (TS)
+│   ├── server/                 # Express + Node.js + PostgreSQL backend (TS)
 │   │   ├── src/
-│   │   │   ├── config/         # PostgreSQL (pg pool), CORS, env configuration
-│   │   │   ├── constants/      # HTTP status codes and error definitions
-│   │   │   ├── middleware/     # Auth, error handling, validation, request logger
+│   │   │   ├── config/         # PostgreSQL (pg pool), CORS, env configuration (TS)
+│   │   │   ├── constants/      # HTTP status codes and error definitions (TS)
+│   │   │   ├── middleware/     # Auth, error handling, validation, request logger (TS)
 │   │   │   ├── modules/        # Domain modules (auth, users, roles, permissions, dashboard)
-│   │   │   │   └── [module]/   # Controller, service, repository (SQL), and routes
-│   │   │   ├── routes/         # Central API route registration
-│   │   │   ├── services/       # Cross-cutting services (DB, token, email)
-│   │   │   └── utils/          # Logger and standard response helpers
-│   │   └── tests/              # Backend integration & unit tests
+│   │   │   │   └── [module]/   # Controller, service, repository (SQL), and routes (TS)
+│   │   │   ├── routes/         # Central API route registration (TS)
+│   │   │   ├── services/       # Cross-cutting services (DB transaction, token) (TS)
+│   │   │   ├── types/          # Express and database TypeScript types
+│   │   │   └── utils/          # Logger and standard response helpers (TS)
+│   │   └── tests/              # Server automated tests
 │   └── worker/                 # Cloudflare Worker edge service
 ├── packages/
-│   ├── shared/                 # Shared constants, types, schemas, utils
-│   ├── validation/             # Shared validation schemas
+│   ├── shared/                 # Shared constants, types, schemas, utils (TS)
+│   ├── validation/             # Shared validation schemas (TS)
 │   ├── eslint-config/          # Shared ESLint configuration
 │   └── prettier-config/        # Shared Prettier configuration
 ├── infra/
-│   ├── docker/                 # Docker Compose with PostgreSQL 16 & Nginx
+│   ├── docker/                 # Docker Compose with PostgreSQL 16
 │   └── cloudflare/             # Cloudflare edge deployment notes & config
 ├── scripts/                    # Automation scripts (database seed, cleanup, generator)
 └── docs/                       # Architecture, API, Database, and Deployment guides
@@ -66,7 +68,7 @@ A production-grade full-stack monorepo architecture built with clean modular sep
 ### 1. Prerequisites
 - **Node.js**: v18.0.0 or higher
 - **pnpm**: v9+ (or npm/yarn)
-- **PostgreSQL**: Local instance running on port 5432 or Docker
+- **PostgreSQL**: Local instance running or Docker
 
 ### 2. Quick Setup
 ```bash
@@ -74,8 +76,8 @@ A production-grade full-stack monorepo architecture built with clean modular sep
 pnpm install
 
 # 2. Copy environment files
-cp apps/api/.env.example apps/api/.env
-cp apps/web/.env.example apps/web/.env
+cp apps/server/.env.example apps/server/.env
+cp apps/client/.env.example apps/client/.env
 
 # 3. Start PostgreSQL with Docker
 docker compose -f infra/docker/docker-compose.yml up -d postgres
@@ -87,4 +89,7 @@ pnpm run db:seed
 pnpm run dev
 ```
 
-The web app will run at `http://localhost:5173` and the API at `http://localhost:5000`.
+The client app runs directly at `http://localhost:5173` and the server at `http://localhost:5000`.
+To run individually:
+- Client: `pnpm run dev:client`
+- Server: `pnpm run dev:server`

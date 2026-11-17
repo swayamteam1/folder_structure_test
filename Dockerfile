@@ -1,4 +1,4 @@
-# Multi-stage Dockerfile for the entire Monorepo
+# Multi-stage Dockerfile for the entire Monorepo (TypeScript)
 FROM node:20-alpine AS base
 
 # Install PNPM
@@ -9,8 +9,8 @@ WORKDIR /app
 # Copy root workspace configuration & package definitions
 COPY package.json pnpm-workspace.yaml pnpm-lock.yaml* ./
 COPY packages/ ./packages/
-COPY apps/api/package.json ./apps/api/
-COPY apps/web/package.json ./apps/web/
+COPY apps/server/package.json ./apps/server/
+COPY apps/client/package.json ./apps/client/
 COPY apps/worker/package.json ./apps/worker/
 
 # Install all workspace dependencies
@@ -19,11 +19,11 @@ RUN pnpm install --frozen-lockfile || pnpm install
 # Copy all source files
 COPY . .
 
-# Build packages and web application
+# Build packages and applications
 RUN pnpm run build
 
-# Expose API and Web ports
+# Expose Server and Client ports
 EXPOSE 5000 5173
 
-# Default startup command (can be overridden)
+# Default startup command
 CMD ["pnpm", "run", "dev"]

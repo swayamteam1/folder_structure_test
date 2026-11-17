@@ -1,8 +1,8 @@
 # Cloudflare Deployment Guide
 
-### Cloudflare Pages (Frontend)
-Build output directory: `apps/web/dist`
-Build command: `pnpm --filter @apps/web build`
+### Cloudflare Pages (Frontend Client)
+Build output directory: `apps/client/dist`
+Build command: `pnpm --filter @apps/client build`
 
 ### Cloudflare Workers
 Deploy the edge proxy or scheduled worker:

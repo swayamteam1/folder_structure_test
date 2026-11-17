@@ -2,15 +2,15 @@
   "name": "pern-monorepo",
   "version": "1.0.0",
   "private": true,
-  "description": "Production-ready PERN Monorepo (PostgreSQL, Express, React+Vite+Tailwind, Node)",
+  "description": "Production-ready PERN Monorepo (PostgreSQL, Express, React+Vite+Tailwind, Node) in full TypeScript",
   "workspaces": [
     "apps/*",
     "packages/*"
   ],
   "scripts": {
     "dev": "pnpm --filter ./apps/* --parallel run dev",
-    "dev:web": "pnpm --filter @apps/web run dev",
-    "dev:api": "pnpm --filter @apps/api run dev",
+    "dev:client": "pnpm --filter @apps/client run dev",
+    "dev:server": "pnpm --filter @apps/server run dev",
     "dev:worker": "pnpm --filter @apps/worker run dev",
     "build": "pnpm --filter ./packages/* run build && pnpm --filter ./apps/* run build",
     "lint": "pnpm -r run lint",
@@ -25,7 +25,9 @@
     "dotenv": "^16.4.5",
     "eslint": "^9.15.0",
     "pg": "^8.13.1",
-    "prettier": "^3.3.3"
+    "prettier": "^3.3.3",
+    "tsx": "^4.19.2",
+    "typescript": "^5.6.3"
   },
   "packageManager": "pnpm@9.12.3"
 }

@@ -1,5 +1,5 @@
 const { Pool } = require('pg');
-require('dotenv').config({ path: './apps/api/.env' });
+require('dotenv').config({ path: './apps/server/.env' });
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL || 'postgresql://postgres:postgres@localhost:5433/pern_monorepo_dev'

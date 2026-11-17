@@ -1,10 +1,13 @@
 # Deployment Guide
 
 ## 1. Local Development via Docker Compose
-Run the entire stack (PostgreSQL, Express API, Vite React frontend, Nginx):
+Run the entire stack (PostgreSQL, Express Server, Vite React Client):
 ```bash
 docker compose -f infra/docker/docker-compose.yml up --build
 ```
+
+- **Client:** `http://localhost:5173`
+- **Server:** `http://localhost:5000`
 
 ## 2. Production Docker
 ```bash
