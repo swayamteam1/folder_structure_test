@@ -1,0 +1,29 @@
+{
+  "name": "pern-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Production-ready PERN Monorepo (PostgreSQL, Express, React+Vite+Tailwind, Node)",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "pnpm --filter ./apps/* --parallel run dev",
+    "dev:web": "pnpm --filter @apps/web run dev",
+    "dev:api": "pnpm --filter @apps/api run dev",
+    "dev:worker": "pnpm --filter @apps/worker run dev",
+    "build": "pnpm --filter ./packages/* run build && pnpm --filter ./apps/* run build",
+    "lint": "pnpm -r run lint",
+    "format": "prettier --write .",
+    "test": "pnpm -r run test",
+    "db:seed": "node scripts/seed.js",
+    "generate:module": "node scripts/generate-module.js",
+    "docker:up": "docker compose -f infra/docker/docker-compose.yml up -d",
+    "docker:down": "docker compose -f infra/docker/docker-compose.yml down"
+  },
+  "devDependencies": {
+    "eslint": "^9.15.0",
+    "prettier": "^3.3.3"
+  },
+  "packageManager": "pnpm@9.12.3"
+}
